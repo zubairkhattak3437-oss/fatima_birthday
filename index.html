@@ -22,17 +22,17 @@
             color: #4a4a4a;
         }
 
-        /* Centered Glassmorphism Container */
+        /* Centered Glassmorphism Container - Mobile First Default */
         .container {
             text-align: center;
             background: rgba(255, 255, 255, 0.45);
-            padding: 40px 30px;
+            padding: 35px 25px;
             border-radius: 24px;
             box-shadow: 0 8px 32px rgba(255, 156, 167, 0.3);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            max-width: 90%;
-            width: 420px;
+            width: 85%; /* Responsive width */
+            max-width: 380px; /* Max width for phones */
             position: relative;
             z-index: 10;
         }
@@ -54,8 +54,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 { color: #d12e5a; margin-bottom: 15px; font-weight: 600; }
-        p { font-size: 16px; line-height: 1.6; font-weight: 300; color: #333; }
+        h2 { color: #d12e5a; margin-bottom: 15px; font-weight: 600; font-size: 1.5rem; }
+        p { font-size: 15px; line-height: 1.6; font-weight: 300; color: #333; }
 
         /* Modern Cute Buttons */
         .btn {
@@ -63,14 +63,17 @@
             color: white;
             border: none;
             padding: 12px 28px;
-            font-size: 16px;
+            font-size: 15px;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 20px;
             transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            /* Ensure button is easy to tap on mobile */
+            min-height: 48px; 
+            min-width: 120px;
         }
         .btn:hover {
             background: #ff5e78;
@@ -79,60 +82,31 @@
         }
 
         /* Gift & Cake Animations */
-        .gift-box {
-            font-size: 80px;
+        .gift-box, .cake {
+            font-size: 70px; /* Mobile size */
             cursor: pointer;
-            animation: shake 2s infinite;
             display: inline-block;
-            margin: 20px 0;
+            margin: 15px 0;
             transition: transform 0.3s;
         }
+        .gift-box { animation: shake 2s infinite; }
         .gift-box:hover { transform: scale(1.1); }
+        .cake { animation: bounce 2s infinite; }
         
         @keyframes shake {
             0%, 100% { transform: rotate(0deg); }
             10%, 30%, 50%, 70%, 90% { transform: rotate(-8deg); }
             20%, 40%, 60%, 80% { transform: rotate(8deg); }
         }
-
-        .cake { font-size: 80px; animation: bounce 2s infinite; margin: 10px 0; }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-15px);}
             60% {transform: translateY(-7px);}
         }
 
-        /* Floating Background Hearts */
-        .floating-heart {
-            position: absolute;
-            color: rgba(255, 117, 140, 0.6);
-            animation: floatUp 8s linear infinite;
-            z-index: 1;
-            user-select: none;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-20vh) scale(1.2) rotate(45deg); opacity: 0; }
-        }
-
-        /* Rising Balloons */
-        .balloon {
-            position: absolute;
-            bottom: -100px;
-            font-size: 45px;
-            animation: rise 5s ease-in forwards;
-            z-index: 20;
-        }
-        @keyframes rise {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
-        }
-
         /* Typing Effect Styling */
         .typewriter {
-            font-size: 1.15rem;
+            font-size: 1rem;
             color: #d12e5a;
             font-weight: 600;
             line-height: 1.6;
@@ -144,6 +118,41 @@
         }
         @keyframes blinkCursor {
             50% { border-color: transparent; }
+        }
+
+        /* Responsive Background Elements */
+        .floating-heart { position: absolute; color: rgba(255, 117, 140, 0.6); animation: floatUp 8s linear infinite; z-index: 1; user-select: none; }
+        .balloon { position: absolute; bottom: -100px; font-size: 40px; animation: rise 5s ease-in forwards; z-index: 20; }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) scale(1.2) rotate(45deg); opacity: 0; }
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+        }
+
+        /* --------------------------------------------------- */
+        /* DESKTOP & LAPTOP STYLES (Screens wider than 600px)  */
+        /* --------------------------------------------------- */
+        @media (min-width: 600px) {
+            .container {
+                max-width: 550px; /* Wider box for PC */
+                padding: 50px 45px;
+            }
+            h2 { font-size: 2.2rem; margin-bottom: 20px; }
+            p { font-size: 18px; }
+            .btn {
+                font-size: 18px;
+                padding: 15px 35px;
+                margin-top: 25px;
+            }
+            .gift-box, .cake { font-size: 100px; /* Bigger emojis for PC */ }
+            .typewriter { font-size: 1.3rem; min-height: 120px; }
+            .balloon { font-size: 60px; }
         }
     </style>
 </head>
@@ -199,7 +208,7 @@
     </div>
 
     <script>
-        // Start floating background hearts immediately
+        // Start floating background hearts
         function createFloatingHearts() {
             setInterval(() => {
                 let heart = document.createElement('div');
@@ -214,41 +223,34 @@
         }
         createFloatingHearts();
 
-        // Navigate between screens
+        // Navigate screens
         function nextScreen(current) {
             document.getElementById(`screen${current}`).classList.remove('active');
             const next = current + 1;
             document.getElementById(`screen${next}`).classList.add('active');
 
-            // Trigger typing effect when reaching the final screen
-            if(next === 7) {
-                startTyping();
-            }
+            if(next === 7) { startTyping(); }
         }
 
-        // Logic for opening the gift box
+        // Open Gift Logic
         function openGift() {
-            // Attempt to play music
             const music = document.getElementById('bg-music');
             music.volume = 0.4;
             let playPromise = music.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => { console.log("Audio couldn't auto-play (browser policy)."); });
+                playPromise.catch(error => { console.log("Audio autoplay prevented by browser."); });
             }
 
-            // Change gift box appearance
             const gift = document.querySelector('.gift-box');
             gift.textContent = "🎀✨";
             gift.style.animation = "none";
             document.getElementById('gift-text').textContent = "Yay!";
 
-            // Trigger visual effects
             triggerFireworks();
             releaseBalloons();
 
-            // Reveal the Next button
             document.getElementById('gift-next-btn').style.display = 'inline-block';
-            gift.onclick = null; // Prevent double clicking
+            gift.onclick = null;
         }
 
         // Fireworks Confetti logic
@@ -279,7 +281,7 @@
                 balloon.style.left = Math.random() * 100 + 'vw';
                 balloon.style.animationDuration = (Math.random() * 2 + 3) + 's';
                 document.body.appendChild(balloon);
-                setTimeout(() => balloon.remove(), 5500); // cleanup
+                setTimeout(() => balloon.remove(), 5500);
             }
         }
 
@@ -289,18 +291,17 @@
         
         function startTyping() {
             const el = document.getElementById('typewriter-text');
-            el.innerHTML = ""; // clear beforehand
+            el.innerHTML = ""; 
             function type() {
                 if (typeIndex < typeText.length) {
                     el.innerHTML += typeText.charAt(typeIndex);
                     typeIndex++;
-                    setTimeout(type, 80); // Typing speed
+                    setTimeout(type, 80); 
                 } else {
-                    // Stop blinking cursor at the end
                     setTimeout(() => el.style.borderRight = "none", 2000);
                 }
             }
-            setTimeout(type, 800); // Initial delay before typing starts
+            setTimeout(type, 800); 
         }
     </script>
 </body>
