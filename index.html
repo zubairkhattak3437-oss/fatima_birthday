@@ -22,7 +22,7 @@
             color: #4a4a4a;
         }
 
-        /* Centered Glassmorphism Container - Mobile First Default */
+        /* Centered Glassmorphism Container */
         .container {
             text-align: center;
             background: rgba(255, 255, 255, 0.45);
@@ -31,8 +31,8 @@
             box-shadow: 0 8px 32px rgba(255, 156, 167, 0.3);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            width: 85%; /* Responsive width */
-            max-width: 380px; /* Max width for phones */
+            width: 85%;
+            max-width: 380px;
             position: relative;
             z-index: 10;
         }
@@ -71,7 +71,6 @@
             margin-top: 20px;
             transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
-            /* Ensure button is easy to tap on mobile */
             min-height: 48px; 
             min-width: 120px;
         }
@@ -81,9 +80,34 @@
             box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
         }
 
+        /* Proposal buttons specifically */
+        .btn-yes {
+            background: #ff758c;
+        }
+        .btn-yes:hover {
+            background: #ff5e78;
+        }
+        .btn-no {
+            background: rgba(255, 255, 255, 0.3);
+            color: #d12e5a;
+            box-shadow: none;
+            border: 1px solid #d12e5a;
+        }
+        .btn-no:hover {
+            background: rgba(255, 255, 255, 0.5);
+            color: #d12e5a;
+            box-shadow: 0 4px 15px rgba(209, 46, 90, 0.2);
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
         /* Gift & Cake Animations */
         .gift-box, .cake {
-            font-size: 70px; /* Mobile size */
+            font-size: 70px;
             cursor: pointer;
             display: inline-block;
             margin: 15px 0;
@@ -104,20 +128,68 @@
             60% {transform: translateY(-7px);}
         }
 
-        /* Typing Effect Styling */
-        .typewriter {
-            font-size: 1rem;
-            color: #d12e5a;
-            font-weight: 600;
-            line-height: 1.6;
-            min-height: 100px;
-            border-right: 3px solid #ff758c;
-            padding-right: 5px;
-            animation: blinkCursor 0.7s infinite;
-            text-align: left;
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.5s;
         }
-        @keyframes blinkCursor {
-            50% { border-color: transparent; }
+        .modal-overlay.open {
+            display: block;
+            opacity: 1;
+        }
+        .modal-card {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .modal-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #d12e5a;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        /* Proposal Section and "Please" styles */
+        #proposal-section {
+            margin-top: 25px;
+            display: none;
+        }
+        #proposal-please, #final-no-msg {
+            display: none;
+            font-size: 14px;
+            color: #d12e5a;
+            margin-top: 15px;
+        }
+        #final-no-msg p {
+            font-size: 14px;
+            color: #d12e5a;
+        }
+
+        /* Extra text stylings for the long confession */
+        .emotional-text p {
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-align: left;
         }
 
         /* Responsive Background Elements */
@@ -135,23 +207,23 @@
             100% { transform: translateY(-120vh) scale(1.1); opacity: 0; }
         }
 
-        /* --------------------------------------------------- */
-        /* DESKTOP & LAPTOP STYLES (Screens wider than 600px)  */
-        /* --------------------------------------------------- */
+        /* Desktop & Laptop Styles */
         @media (min-width: 600px) {
             .container {
-                max-width: 550px; /* Wider box for PC */
+                max-width: 550px;
                 padding: 50px 45px;
             }
             h2 { font-size: 2.2rem; margin-bottom: 20px; }
             p { font-size: 18px; }
+            .emotional-text p { font-size: 16px; }
             .btn {
                 font-size: 18px;
                 padding: 15px 35px;
                 margin-top: 25px;
             }
-            .gift-box, .cake { font-size: 100px; /* Bigger emojis for PC */ }
-            .typewriter { font-size: 1.3rem; min-height: 120px; }
+            .gift-box, .cake { font-size: 100px; }
+            .modal-card { padding: 40px; width: 70%; max-width: 450px; }
+            .modal-card p { font-size: 18px; }
             .balloon { font-size: 60px; }
         }
     </style>
@@ -201,13 +273,92 @@
             <button class="btn" onclick="nextScreen(6)">Next</button>
         </div>
 
-        <div id="screen7" class="screen">
-            <p class="typewriter" id="typewriter-text"></p>
+        <div id="screen7" class="screen emotional-text">
+            <p>“I think I love you.”</p>
+            <p>The first time I saw you, I fell in love with you instantly, but I never got the chance to confess my feelings. I used to travel just to see you, just for one glimpse.</p>
+            <p>You are the most important and most special person in my life, and I love you more than you can imagine. I cared about you so much that I would even fight anyone who spoke badly about you.</p>
+            <p>When I first saw you in tuition, I used to come every day just to see your face. Even though you never gave me much importance, I kept coming just for a glimpse of you.</p>
+            <p>I used to lie and mention my cousin just to make you jealous, but in reality, I never even loved her — it was always you.</p>
+            <p>When I found your Instagram account, you blocked me multiple times, maybe this is the fourth time, and I still couldn’t confess.</p>
+            <p>I wanted to confess in tuition many times, but there was always someone around, so I never got the courage.</p>
+            <p>“Now I am finally saying it — I love you. You are my first love and my last love. You will be forever in my heart.”</p>
+            <p>I want to spend my life with you. I know maybe you don’t love me, but I will wait for you forever. I don’t know if you love me or not, but I am confessing my true feelings.</p>
+            
+            <div id="proposal-section">
+                <h2>Did you accept my proposal?</h2>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 15px;">
+                    <button class="btn btn-yes" onclick="handleProposal(true)">Yes</button>
+                    <button id="no-btn" class="btn btn-no" onclick="handleProposal(false)">No</button>
+                </div>
+            </div>
+            
+            <div id="proposal-please"></div>
+            <div id="final-no-msg"></div>
         </div>
 
     </div>
 
+    <div class="modal-overlay" id="prayer-modal">
+        <div class="modal-card">
+            <span class="close-modal" onclick="closeModal('prayer-modal')">&times;</span>
+            <p>When I prayed, I always asked Allah for you. Today my prayer has come true. This is the happiest moment of my life.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="supportive-modal">
+        <div class="modal-card">
+            <span class="close-modal" onclick="closeModal('supportive-modal')">&times;</span>
+            <p>I care about you so much. Even if you don’t choose me, I will always be here for you. If you ever need help in the future, just remember my Instagram. I will always be there for you.</p>
+        </div>
+    </div>
+
     <script>
+        // Proposal persistence logic
+        let noClickCount = 0;
+
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('open');
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('open');
+        }
+
+        // Handle Proposal choice
+        function handleProposal(accepted) {
+            const pleaseDiv = document.getElementById('proposal-please');
+            const finalNoDiv = document.getElementById('final-no-msg');
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.querySelector('.btn-yes');
+
+            if (accepted) {
+                showModal('prayer-modal');
+                // Disable both buttons after choice
+                noBtn.disabled = true;
+                yesBtn.disabled = true;
+                pleaseDiv.style.display = 'none'; // Hide any current "Please" message
+            } else {
+                noClickCount++;
+                if (noClickCount == 1) {
+                    pleaseDiv.innerHTML = "Please";
+                    pleaseDiv.style.display = 'block';
+                } else if (noClickCount == 2) {
+                    pleaseDiv.innerHTML = "Please 🥺";
+                    pleaseDiv.style.display = 'block';
+                } else if (noClickCount >= 3) {
+                    // Hide current proposal section completely and show final message
+                    pleaseDiv.style.display = 'none';
+                    document.getElementById('proposal-section').style.display = 'none';
+                    
+                    finalNoDiv.innerHTML = "<p>“It’s okay. I will still love you forever. I can’t change your mind, but I will always wait for you. Maybe one day, InshaAllah, you will love me too.”</p>";
+                    finalNoDiv.style.display = 'block';
+                    
+                    // Final supportive popup
+                    setTimeout(() => showModal('supportive-modal'), 2000); // 2s delay
+                }
+            }
+        }
+
         // Start floating background hearts
         function createFloatingHearts() {
             setInterval(() => {
@@ -229,7 +380,12 @@
             const next = current + 1;
             document.getElementById(`screen${next}`).classList.add('active');
 
-            if(next === 7) { startTyping(); }
+            if (next === 7) {
+                // Show the proposal section after the long text
+                setTimeout(() => {
+                    document.getElementById('proposal-section').style.display = 'block';
+                }, 1000); // delay before the proposal appears
+            }
         }
 
         // Open Gift Logic
@@ -283,25 +439,6 @@
                 document.body.appendChild(balloon);
                 setTimeout(() => balloon.remove(), 5500);
             }
-        }
-
-        // Typing effect logic
-        const typeText = "I don’t know how to say this… but you are really special to me… and I think I like you. ❤️";
-        let typeIndex = 0;
-        
-        function startTyping() {
-            const el = document.getElementById('typewriter-text');
-            el.innerHTML = ""; 
-            function type() {
-                if (typeIndex < typeText.length) {
-                    el.innerHTML += typeText.charAt(typeIndex);
-                    typeIndex++;
-                    setTimeout(type, 80); 
-                } else {
-                    setTimeout(() => el.style.borderRight = "none", 2000);
-                }
-            }
-            setTimeout(type, 800); 
         }
     </script>
 </body>
